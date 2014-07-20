@@ -2,6 +2,10 @@
 
 Google map, openweather and webcams
 
+## Demo
+
+open link http://izi-map.herokuapp.com/
+
 ## Installation
 
 Using with grunt
