@@ -10,28 +10,30 @@
       };
       map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
       return google.maps.event.addListener(map, 'click', function(e) {
-        return placeMarker(e.latLng, map);
+        var infoWindow, marker, position;
+        position = e.latLng;
+        marker = placeMarker(position, map);
+        infoWindow = placeInfoWindow(position, map, marker);
+        $.when(weatherRequest(position), webcamRequest(position)).done(function(weatherResponse, webcamResponse) {
+          return infoWindow.setContent(getWeatherInfo(weatherResponse) + getWebcamInfo(webcamResponse));
+        });
+        return map.panTo(position);
       });
     })();
     placeMarker = function(position, map) {
-      var marker;
-      marker = new google.maps.Marker({
+      return new google.maps.Marker({
         position: position,
         map: map,
         title: 'Wheater and webcams'
       });
-      placeInfoWindow(position, map, marker);
-      return map.panTo(position);
     };
     return placeInfoWindow = function(position, map, marker) {
-      return $.when(weatherRequest(position), webcamRequest(position)).done(function(weatherResponse, webcamResponse) {
-        var infowindow;
-        window.webcamResponse = JSON.parse(webcamResponse[0]);
-        infowindow = new google.maps.InfoWindow({
-          content: getWeatherInfo(weatherResponse) + getWebcamInfo(webcamResponse)
-        });
-        return infowindow.open(map, marker);
+      var infoWindow;
+      infoWindow = new google.maps.InfoWindow({
+        content: '<img src="img/ajax-loader.gif" title="loading...">'
       });
+      infoWindow.open(map, marker);
+      return infoWindow;
     };
   });
 

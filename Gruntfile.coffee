@@ -3,7 +3,7 @@ module.exports = (grunt) ->
     copy:
       build:
         cwd: 'source',
-        src: [ '**', '!**/*.coffee', '!**/*.sass', '!**/*.slim' ],
+        src: [ '**', '!**/*.coffee', '!**/*.sass', '!**/*.slim', 'img/*' ],
         dest: 'build',
         expand: true
 
@@ -14,6 +14,8 @@ module.exports = (grunt) ->
         src: [ 'build/**/*.css', 'build/application.css' ]
       scripts:
         src: [ 'build/**/*.js', 'build/application.js' ]
+      images:
+        src: [ 'build/img/*' ]
 
     coffee:
       build:
@@ -92,7 +94,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build',
     'Compiles all of the assets and copies the files to the build directory.',
-    [ 'clean:build', 'copy', 'stylesheets', 'scripts', 'slim' ]
+    [ 'clean:build', 'clean:images', 'copy', 'stylesheets', 'scripts', 'slim' ]
 
   grunt.registerTask 'default',
     'Watches the project for changes, automatically builds them and runs a server.',
