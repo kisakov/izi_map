@@ -1,7 +1,7 @@
 $ ->
   do initialize = ->
     mapOptions =
-      center: new google.maps.LatLng(-34.397, 150.644)
+      center: new google.maps.LatLng(35, 139)
       zoom: 8
       mapTypeId: google.maps.MapTypeId.ROADMAP
 
@@ -21,7 +21,7 @@ $ ->
   placeInfoWindow = (position, map, marker) ->
     $.when(weatherRequest(position), webcamRequest(position))
       .done (weatherResponse, webcamResponse) ->
-        window.weatherResponse = weatherResponse
+        window.webcamResponse = JSON.parse(webcamResponse[0])
         infowindow = new google.maps.InfoWindow
-                      content: getWeatherInfo(weatherResponse)
+                      content: getWeatherInfo(weatherResponse) + getWebcamInfo(webcamResponse)
         infowindow.open(map, marker)

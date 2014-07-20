@@ -10,8 +10,8 @@
     return window.getWeatherInfo = function(response) {
       var data, result;
       data = response[0];
-      result = response[1] === 'success' ? "" + data.weather[0].main + "<br> " + data.weather[0].description + "<br> " + (Math.round(data.main.temp - 273.15)) + " C&deg<br> Humidity: " + data.main.humidity + "%<br> Wind: " + data.wind.speed + "m/s<br>" : '<p>No wheater forecast for this location</p>';
-      return "<h3>Wheater</h3>" + result;
+      result = response[1] === 'success' ? "" + data.name + ", " + data.sys.country + "<br> " + data.weather[0].main + "<br> " + data.weather[0].description + "<br> " + (Math.round(data.main.temp - 273.15)) + " C&deg<br> Humidity: " + data.main.humidity + "%<br> Wind: " + data.wind.speed + "m/s<br>" : '<p>No wheater forecast for this location</p>';
+      return "<h3>Wheater forecast</h3>" + result;
     };
   });
 

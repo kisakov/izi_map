@@ -9,6 +9,7 @@ $ ->
     data   = response[0]
     result = if response[1] == 'success'
                "
+                #{data.name}, #{data.sys.country}<br>
                 #{data.weather[0].main}<br>
                 #{data.weather[0].description}<br>
                 #{Math.round(data.main.temp - 273.15)} C&deg<br>
@@ -17,5 +18,5 @@ $ ->
                "
              else
                '<p>No wheater forecast for this location</p>'
-    "<h3>Wheater</h3>#{result}"
+    "<h3>Wheater forecast</h3>#{result}"
 

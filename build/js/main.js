@@ -4,7 +4,7 @@
     (initialize = function() {
       var map, mapOptions;
       mapOptions = {
-        center: new google.maps.LatLng(-34.397, 150.644),
+        center: new google.maps.LatLng(35, 139),
         zoom: 8,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
@@ -26,9 +26,9 @@
     return placeInfoWindow = function(position, map, marker) {
       return $.when(weatherRequest(position), webcamRequest(position)).done(function(weatherResponse, webcamResponse) {
         var infowindow;
-        window.weatherResponse = weatherResponse;
+        window.webcamResponse = JSON.parse(webcamResponse[0]);
         infowindow = new google.maps.InfoWindow({
-          content: getWeatherInfo(weatherResponse)
+          content: getWeatherInfo(weatherResponse) + getWebcamInfo(webcamResponse)
         });
         return infowindow.open(map, marker);
       });
