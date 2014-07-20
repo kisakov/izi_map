@@ -1,0 +1,19 @@
+{
+  "name": "izi_map",
+  "version": "0.0.1",
+  "description": "test task",
+  "author": "kisakov",
+  "license": "MIT",
+  "dependencies": {
+    "grunt": "0.x.x",
+    "grunt-contrib-coffee": "0.10.x",
+    "grunt-contrib-sass": "0.7.x",
+    "grunt-contrib-connect": "0.8.x",
+    "grunt-contrib-clean": "0.5.x",
+    "grunt-contrib-copy": "0.5.x",
+    "grunt-contrib-uglify": "0.5.x",
+    "grunt-contrib-watch": "0.6.x",
+    "grunt-slim": "0.1.x"
+  },
+  "engine": "node >= 0.10"
+}
