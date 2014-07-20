@@ -16,3 +16,7 @@ Using with grunt
 
 Or open in browser izi_map/build/index.html
 
+## TODO
+
+Add javascript templates. Maybe mustache.
+
