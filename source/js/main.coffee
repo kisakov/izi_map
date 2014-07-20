@@ -19,6 +19,9 @@ $ ->
     map.panTo(position)
 
   placeInfoWindow = (position, map, marker) ->
-    infowindow = new google.maps.InfoWindow(content: position.lat().toString())
-    infowindow.open(map, marker)
-
+    $.when(weatherRequest(position), webcamRequest(position))
+      .done (weatherResponse, webcamResponse) ->
+        window.weatherResponse = weatherResponse
+        infowindow = new google.maps.InfoWindow
+                      content: getWeatherInfo(weatherResponse)
+        infowindow.open(map, marker)

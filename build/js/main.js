@@ -24,11 +24,14 @@
       return map.panTo(position);
     };
     return placeInfoWindow = function(position, map, marker) {
-      var infowindow;
-      infowindow = new google.maps.InfoWindow({
-        content: position.lat().toString()
+      return $.when(weatherRequest(position), webcamRequest(position)).done(function(weatherResponse, webcamResponse) {
+        var infowindow;
+        window.weatherResponse = weatherResponse;
+        infowindow = new google.maps.InfoWindow({
+          content: getWeatherInfo(weatherResponse)
+        });
+        return infowindow.open(map, marker);
       });
-      return infowindow.open(map, marker);
     };
   });
 
