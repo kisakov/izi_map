@@ -3,7 +3,7 @@ module.exports = (grunt) ->
     copy:
       build:
         cwd: 'source',
-        src: [ '**', '!**/*.coffee', '!**/*.slim' ],
+        src: [ '**', '!**/*.coffee', '!**/*.sass', '!**/*.slim' ],
         dest: 'build',
         expand: true
 
@@ -23,12 +23,25 @@ module.exports = (grunt) ->
         dest: 'build',
         ext: '.js'
 
+    sass:
+      build:
+        expand: true,
+        cwd: 'source',
+        src: [ '**/*.sass' ],
+        dest: 'build',
+        ext: '.css'
+
     uglify:
       build:
         options:
           mangle: false
         files:
           'build/application.js': [ 'build/**/*.js' ]
+
+    cssmin:
+      combine:
+        files:
+          'build/application.css': [ 'build/**/*.css' ]
 
     slim:
       build:
@@ -42,8 +55,11 @@ module.exports = (grunt) ->
       scripts:
         files: 'source/**/*.coffee',
         tasks: [ 'scripts' ]
+      stylesheets:
+        files: 'source/**/*.sass',
+        tasks: [ 'stylesheets' ]
       copy:
-        files: [ 'source/**', '!source/**/*.coffee', '!source/**/*.slim' ],
+        files: [ 'source/**', '!source/**/*.coffee', '!source/**/*.sass', '!source/**/*.slim' ],
         tasks: [ 'copy' ]
       slim:
         files: 'source/**/*.slim',
@@ -58,15 +74,17 @@ module.exports = (grunt) ->
 
   grunt.loadNpmTasks('grunt-contrib-copy')
   grunt.loadNpmTasks('grunt-contrib-clean')
+  grunt.loadNpmTasks('grunt-contrib-sass')
   grunt.loadNpmTasks('grunt-contrib-coffee')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-contrib-connect')
   grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-contrib-cssmin')
   grunt.loadNpmTasks('grunt-slim')
 
   grunt.registerTask 'stylesheets',
     'Compiles the stylesheets.',
-    [ 'clean:stylesheets' ]
+    [ 'clean:stylesheets', 'sass', 'cssmin' ]
 
   grunt.registerTask 'scripts',
     'Compiles the JavaScript files.',
