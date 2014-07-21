@@ -16,5 +16,9 @@
     "grunt-contrib-watch": "0.6.x",
     "grunt-slim": "0.1.x"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kisakov/izi_map.git"
+  },
   "engine": "node >= 0.10"
 }
